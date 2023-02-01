@@ -6,6 +6,7 @@ import NavDropdown from "react-bootstrap/NavDropdown";
 import Button from "react-bootstrap/Button";
 import { useNavigate } from "react-router-dom";
 import { BrowserRouter as Router, Route, Link,Routes } from "react-router-dom";
+import { Image } from '@chakra-ui/react'
 
 export default function() {
 
@@ -20,9 +21,15 @@ export default function() {
   function goToAbout()
   {navigate("/")}
   return (
-    <Navbar bg="light" expand="lg"style={{position:"absolute",width:"100%",bottom:"93vh"}}>
+    <Navbar bg="light" expand="lg">
     <Container>
-      <Navbar.Brand href="#home">Welcome</Navbar.Brand>
+    <Image
+            borderRadius='10%'
+            boxSize='50px'
+            src={require("../Images/img4.png")}
+            alt='Dan Abramov'
+          />&nbsp;&nbsp;
+      <Navbar.Brand style={{fontSize:30,fontWeight:'bold'}} href="#home">SAPLING</Navbar.Brand>
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="me-auto">

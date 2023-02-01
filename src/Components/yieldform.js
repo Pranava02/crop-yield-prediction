@@ -5,17 +5,19 @@ import { useState } from 'react';
 //import { response } from "express";
 import "./Prediction.css";
 //import styles from "./RegistrationForm.module.scss";
+import Card from "react-bootstrap/Card";
+import { Select } from '@chakra-ui/react'
 
-function Result({prediction}) {
+function Result({ prediction }) {
     return (
-      <div className="result-container">
-        <h3>Prediction:</h3>
-        <p>{prediction}</p>
-      </div>
+        <div className="result-container">
+            <h3>Prediction:</h3>
+            <p>Predicted Yield : {prediction} tonnes/ha</p>
+        </div>
     );
-  }
+}
 
-  
+
 function YieldForm() {
     const [rainfall, setrainfall] = useState(Number);
     const [district, setdistrict] = useState('');
@@ -49,14 +51,14 @@ function YieldForm() {
     //     predictYield();
     //   }
     // }, [inputValues])
-  
+
     // const handleChange = e => {
     //     setinputValues({
     //       ...inputValues,
     //       [e.target.name]: e.target.value
     //     });
     //   };
-    
+
     const handleSubmit = (event) => {
         event.preventDefault();
         // const data = {
@@ -78,12 +80,12 @@ function YieldForm() {
         //setPrediction(pred.prediction);
         //.then(resp => JSON.stringify(resp))
         const resp = predictYield(rainfall, district, crop, season)
-        .then(resp => JSON.stringify(resp))
-             //.then(resp.split("}"))
-             .then(data => {
-                 setPrediction(data.split("\"")[5]);
-                 
-             });
+            .then(resp => JSON.stringify(resp))
+            //.then(resp.split("}"))
+            .then(data => {
+                setPrediction(data.split("\"")[5]);
+
+            });
         //setPrediction(response['prediction']);
 
         //console.log(ans);
@@ -106,42 +108,85 @@ function YieldForm() {
         //       setPrediction(data.prediction);
         //       console.log(data);
         //     }
-        
+
         // })
     }
 
     return (
         <div className="center">
-        <form className="form" onSubmit={handleSubmit}>
-            
-            <label>
-                rainfall:
-                <input type="number" value={rainfall} onChange={(e)=>setrainfall(e.target.value)} />
+            <Card style={{ paddingLeft: '5%', paddingRight: '5%', borderRadius: '10%', paddingTop: '3%', paddingBottom: '3%', marginBottom: '3%' }}>
+                <form className="form" onSubmit={handleSubmit}>
+
+                    <label>
+                        Rainfall:
+                        <input type="number" value={rainfall} onChange={(e) => setrainfall(e.target.value)} />
+                    </label>
+                    <br />
+                    <label>
+                        {/* City:
+                         <input type="text" value={district} onChange={(e) => setdistrict(e.target.value)} />
+                        <label> */}
+                City:&nbsp;
+                {/* <input type="text" value={city} onChange={(e) => setcity(e.target.value)} /> */}
+                <Select placeholder='Select city' type="text" value={district} onChange={(e) => setdistrict(e.target.value)}>
+                    <option value='AHMEDNAGAR'>Ahmednagar</option>
+                    <option value='AKOLA'>Akola</option>
+                    <option value='AMRAVATI'>Amravati</option>
+                    <option value='AURANGABAD'>Aurangabad</option>
+                    <option value='BEED'>Beed</option>
+                    <option value='BHANDARA'>Bhandara</option>
+                    <option value='BULDHANA'>Buldhana</option>
+                    <option value='CHANDRAPUR'>Chandrapur</option>
+                    <option value='DHULE'>Dhule</option>
+                    <option value='GADCHIROLI'>Gadchiroli</option>
+                    <option value='GONDIA'>Gondia</option>
+                    <option value='HINGOLI'>Hingoli</option>
+                    <option value='JALGAON'>Jalgaon</option>
+                    <option value='JALNA'>Jalna</option>
+                    <option value='KOLHAPUR'>Kolhapur</option>
+                    <option value='LATUR'>Latur</option>
+                    <option value='MUMBAI'>Mumbai</option>
+                    <option value='NAGPUR'>Nagpur</option>
+                    <option value='NANDED'>Nanded</option>
+                    <option value='NANDURBAR'>Nandurbar</option>
+                    <option value='NASHIK'>Nashik</option>
+                    <option value='OSMANABAD'>Osmanabad</option>
+                    <option value='PALGHAR'>Palghar</option>
+                    <option value='PARBHANI'>Parbhani</option>
+                    <option value='PUNE'>Pune</option>
+                    <option value='RAIGAD'>Raigad</option>
+                    <option value='RATNAGIRI'>Ratnagiri</option>
+                    <option value='SANGLI'>Sangli</option>
+                    <option value='SATARA'>Satara</option>
+                    <option value='SINDHUDURG'>Sindhudurg</option>
+                    <option value='SOLAPUR'>Solapur</option>
+                    <option value='THANE'>Thane</option>
+                    <option value='WARDHA'>Wardha</option>
+                    <option value='WASHIM'>Washim</option>
+                    <option value='YAVATMAL'>Yavatmal</option>
+                </Select>
             </label>
             <br />
-            <label>
-                city:
-                <input type="text" value={district} onChange={(e)=>setdistrict(e.target.value)} />
-            </label>
-            <br />
-            <label>
-                Crop:
-                <input type="text" value={crop} onChange={(e)=>setcrop(e.target.value)} />
-            </label>
-            <br />
-            <label>
-                Season:
-                <input type="text" value={season} onChange={(e)=>setseason(e.target.value)} />
-            </label>
-            
-            <button type="submit">Predict</button>
-            <br />
-            {/* */}
-            {prediction && <Result prediction={prediction} />}
-            {/* <p>{prediction}</p> */}
-        </form>
-        
-        {/* <p>[ans]</p>  */}
+                    <label>
+                        Crop:
+                        <input type="text" value={crop} onChange={(e) => setcrop(e.target.value)} />
+                    </label>
+                    <br />
+                    <label>
+                        Season:
+                        <input type="text" value={season} onChange={(e) => setseason(e.target.value)} />
+                    </label>
+                    <br />
+                    <div style={{ textAlign: 'center', padding: '5%' }}>
+                        <button className="btn btn-primary" type="submit">Predict</button>
+                    </div>
+                    <br />
+                    {/* */}
+                    {prediction && <Result prediction={prediction} />}
+                    {/* <p>{prediction}</p> */}
+                </form>
+            </Card>
+            {/* <p>[ans]</p>  */}
         </div>
     );
 }
